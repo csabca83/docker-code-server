@@ -1,0 +1,40 @@
+FROM linuxserver/code-server:latest
+
+# Custom installs
+RUN \
+  echo "**** install common tools ****" && \
+  apt-get update && \
+  apt-get install -y \
+  software-properties-common \
+  bc \
+  wget \
+  zip \
+  unzip \
+  awscli \
+  docker.io \
+  mysql-client \
+  libmysqlclient-dev \
+  firewalld \
+  golang-go && \
+  echo "**** Installing python ****" && \
+  add-apt-repository ppa:deadsnakes/ppa -y && \
+  apt-get update && \
+  apt-get install -y \
+  python3.10 \
+  python3-pip \
+  python3-distutils \
+  python3-apt && \
+  echo "**** APT cleanup ****" && \
+  apt-get clean
+
+RUN \
+  echo "**** Installing terraform ****" && \
+  curl -o \
+    /tmp/terraform_1.3.6_linux_arm64.zip -L \
+    "https://releases.hashicorp.com/terraform/1.3.6/terraform_1.3.6_linux_arm64.zip" && \
+  unzip /tmp/terraform_1.3.6_linux_arm64.zip terraform && \
+  chmod +x terraform && mv ./terraform /usr/local/bin/terraform && \
+  rm -rf /tmp/*
+
+# ports and volumes
+EXPOSE 8443
