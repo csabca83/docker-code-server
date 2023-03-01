@@ -36,5 +36,12 @@ RUN \
   chmod +x terraform && mv ./terraform /usr/local/bin/terraform && \
   rm -rf /tmp/*
 
+RUN \
+  echo "**** Installing node and npm ****" && \
+  curl -o- \
+  https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
+  nvm install v19.7.0 \
+  rm -rf install.sh
+
 # ports and volumes
 EXPOSE 8443
