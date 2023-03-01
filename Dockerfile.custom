@@ -36,5 +36,5 @@ RUN \
   chmod +x terraform && mv ./terraform /usr/local/bin/terraform && \
   rm -rf /tmp/*
 
-# ports and volumes
+## ports and volumes
 EXPOSE 8443
